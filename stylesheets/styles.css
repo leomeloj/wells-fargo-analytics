@@ -850,8 +850,8 @@ section #title .credits.right {
   
   nav .fork {
     float: none !important;
-    margin: 0 auto;
     width: 130px;
     display: block;
+    margin: 0 auto !important;
   }
 }
