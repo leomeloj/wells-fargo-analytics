@@ -851,7 +851,7 @@ section #title .credits.right {
   nav .fork {
     float: none !important;
     width: 130px;
-    display: block;
+    display: block !important;
     margin: 0 auto !important;
   }
 }
