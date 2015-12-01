@@ -845,7 +845,7 @@ section #title .credits.right {
     margin-top: 40px;
   }
 
-  nav .downloads{
-    display: none;
+  nav .downloads, nav .title{
+    display: none !important;
   }
 }
