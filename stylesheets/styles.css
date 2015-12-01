@@ -848,4 +848,10 @@ section #title .credits.right {
   nav .downloads, nav .title{
     display: none !important;
   }
+  
+  nav .fork {
+    float: none !important;
+    margin: 0 auto;
+    width: 130px;
+  }
 }
