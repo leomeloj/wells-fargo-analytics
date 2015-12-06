@@ -51,7 +51,7 @@
   <img style="display: block; margin: 10px auto" src="https://raw.githubusercontent.com/leomeloj/wells-fargo-analytics/master/dataWithBanks.png" alt="dataframeWithBanks"/>
   <p>Afterwards, we divided the dataframe in two: Positive posts and Negative posts. In order to do that, we used a positive and a negative corpus and we score each post by how positive and how negative it was.</p>
   <p>Basicaly, for each positive word found on a post his score was incremented by 1 and for each negative it was decremented by 1. Then, for those posts with a score lower than -2 or higher than +2 we would consider it negative or positive respectively. The code is the above:</p>
-  <code><p>score.sentiment = function(sentences, pos.words, neg.words, .progress='none') { <br/>
+  <code><p style="margin-left: 20px">score.sentiment = function(sentences, pos.words, neg.words, .progress='none') { <br/>
   require(plyr)<br/>
   require(stringr)<br/>
   <br/>
@@ -113,7 +113,7 @@ numneg = sum(scores$very.neg)<br/>
 df.negative = scores[scores$very.neg == 1, c(2,5,6)]<br/>
 df.positive = scores[scores$very.pos == 1, c(2,5,6)]<br/>
 <br/>
-#BankA<br/><br/>
+#BankA<br/>
 df.bankA.negative = scores[(scores$BankID == "BankA" & scores$very.neg == 1), c(2, 5)]<br/>
 df.bankA.positive = scores[(scores$BankID == "BankA" & scores$very.pos == 1), c(2, 5)]<br/>
 #BankB<br/>
@@ -135,8 +135,77 @@ df.banke.positive = scores[(scores$BankID == "Banke" & scores$very.pos == 1), c(
 <h3>
 <a id="corpus_cleanup" class="anchor" href="#corpus_cleanup" aria-hidden="true"><span class="octicon octicon-link"></span></a> Creation of a Corpus to Clean the Text and create Word Clouds</h3>
 
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
+<p>With the dataset organized we created the corpus to create the word clouds. With the corpus created, it's possible to clean it by removing unwanted words and terms. We did a function that was used to clean up the texts and generate the word cloud:</p>
+<code><p style="margin-left: 20px">
+  createWordCloud = function(dataset){<br/>
+  #Create a corpus using a dataframe<br/>
+  #corpus <- Corpus(DataframeSource(dataset))<br/>
+  corpus <- VCorpus(VectorSource(dataset$text))<br/>
+  
+  #clean the corpus text<br/>
+  corpus <- tm_map(corpus, content_transformer(tolower))  <br/>
+  corpus <- tm_map(corpus, removeWords, c("name", "bank", "twit_hndl", "AD", "twit_hnld_bankb_help","ADRESS", "twit","twithndlbankc",<br/>
+                                          "twit_hndl_banka", "twit_hndl_bankb", "twit_hndl_bankd", "twit_hndl_banke",<br/>
+                                          "name_resp", "internet", "hndl", "twit_hndl_banka","twit_hndl_bankc", <br/>
+                                          "banka", "bankb", "feedbankb", "bankc", "bankd", "banke"))<br/>
+  corpus <- tm_map(corpus, stripWhitespace)<br/>
+  corpus <- tm_map(corpus, removePunctuation)<br/>
+  corpus <- tm_map(corpus, removeNumbers)<br/>
+  corpus <- tm_map(corpus, removeWords, stopwords("english"))<br/>
+  <br/>
+  #Creates a Document Term Matrix to be used in the wordcloud<br/>
+  corpusText <- tm_map(corpus, PlainTextDocument)<br/>
+  dtm <- DocumentTermMatrix(corpusText)<br/>
+  <br/>
+  tdm <- TermDocumentMatrix(corpus)<br/>
+  #Get the frequency of the words <br/>
+  freq <- colSums(as.matrix(dtm))   <br/>
+  length(freq)   <br/>
+  ord <- order(freq)   <br/>
+  m <- as.matrix(dtm)   <br/>
+  dim(m)   <br/>
+  <br/>
+  #Sort the words by frequency rank<br/>
+  freq<- sort(colSums(as.matrix(dtm)), decreasing=TRUE)<br/>
+  #Create a txt file with the ranked words<br/>
+  write.table(freq, file = "input.txt")<br/>
+  <br/>
+  dtms <- removeSparseTerms(dtm, 0.25) # Prepare the data (max 15% empty space)   <br/>
+  freq <- colSums(as.matrix(dtm)) # Find word frequencies   <br/>
+  dark2 <- brewer.pal(6, "Dark2")   <br/>
+  #Create the wordcloud<br/>
+  wordcloud(names(freq), freq, max.words=100, rot.per=0.2, colors=dark2)  <br/>
+}<br/>
+  
+</p></code>
 
+<p> Afterwards, we used that function to generate the WordClouds for each dataframe we wanted to analyze: </p>
+<code> <p style="margin-left: 20px">
+  #Call the function to generate different wordclouds <br/>
+#Creating clouds to see the diffence between what banks A, B, C and D have different than the other banks <br/>
+createWordCloud(scores[(scores$BankID != "Banke" & scores$very.pos == 1),c(2,3)]) <br/>
+createWordCloud(scores[(scores$BankID == "Banke" & scores$very.pos == 1),c(2,3)]) <br/>
+ <br/>
+createWordCloud(scores[(scores$BankID != "Banke" & scores$very.neg == 1),c(2,3)]) <br/>
+createWordCloud(scores[(scores$BankID == "Banke" & scores$very.neg == 1),c(2,3)]) <br/>
+ <br/>
+#Create clouds to see the difference between the banks A, B, C and D <br/>
+#createWordCloud(scores[(scores$BankID == "Banke"),c(2,3)]) <br/>
+createWordCloud(scores[(scores$very.neg == 1),c(2,3)]) <br/>
+createWordCloud(scores[(scores$very.pos == 1),c(2,3)]) <br/>
+ <br/>
+createWordCloud(scores[,c(2,3)]) <br/>
+createWordCloud(df.bankA.positive) <br/>
+createWordCloud(df.bankA.negative) <br/>
+createWordCloud(df.bankB.negative) <br/>
+createWordCloud(df.bankB.positive) <br/>
+createWordCloud(df.bankC.negative) <br/>
+createWordCloud(df.bankC.positive) <br/>
+createWordCloud(df.bankD.negative) <br/>
+createWordCloud(df.bankD.positive) <br/>
+createWordCloud(df.banke.negative) <br/>
+createWordCloud(df.banke.positive) <br/>
+</p></code>
 <h3>
 <a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating pages manually</h3>
 
