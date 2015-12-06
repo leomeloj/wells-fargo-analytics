@@ -39,7 +39,7 @@
         </div>
 
         <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Organizing the data:</h3>
+<a id="organizing_data" class="anchor" href="#organizing_data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Organizing the data:</h3>
 
 <p>The team started by identifying in each post what bank was being talked about. By a simple string search, we found out the indexes of the posts that represents each bank. For example: the posts 1, 3, 4 and 5 talks about bank A while posts 2, 6 and 8 about bank B. So we created a column that represents the bank talked in the post:</p>
   <code> <p style="margin-left: 20px">bankA.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankA",x)))<br/>
@@ -51,7 +51,15 @@
   <img style="display: block; margin: 10px auto" src="https://raw.githubusercontent.com/leomeloj/wells-fargo-analytics/master/dataWithBanks.png" alt="dataframeWithBanks"/>
   <p>Afterwards, we divided the dataframe in two: Positive posts and Negative posts. In order to do that, we used a positive and a negative corpus and we score each post by how positive and how negative it was.</p>
   <p>Basicaly, for each positive word found on a post his score was incremented by 1 and for each negative it was decremented by 1. Then, for those posts with a score lower than -2 or higher than +2 we would consider it negative or positive respectively. The code is the above:</p>
-  <code><p>scores = laply(sentences, function(sentence, pos.words, neg.words) {<br>/
+  <code><p>score.sentiment = function(sentences, pos.words, neg.words, .progress='none') { <br/>
+  require(plyr)<br/>
+  require(stringr)<br/>
+  <br/>
+  # we got a vector of sentences. plyr will handle a list<br/>
+  # or a vector as an "l" for us<br/>
+  # we want a simple array ("a") of scores back, so we use <br/>
+  # "l" + "a" + "ply" = "laply":<br/>
+  scores = laply(sentences, function(sentence, pos.words, neg.words) {<br/>
     <br/>
     # clean up sentences with R's regex-driven global substitute, gsub():<br/>
     sentence = gsub('[[:punct:]]', '', sentence)<br/>
@@ -79,13 +87,37 @@
     <br/>
     return(score)<br/>
   }, pos.words, neg.words, .progress=.progress )<br/>
-  scores.df = data.frame(score=scores, text=sentences)
+  <br/>
+  scores.df = data.frame(score=scores, text=sentences)<br/>
+  return(scores.df)<br/>
+}<br/>
+<br/>
+<br/>
+#scores = score.sentiment(df.new$FullText, pos, neg, .progress='text')<br/>
+<br/>
+scores = score.sentiment(df.texts.clean[,1], pos, neg, .progress='text')<br/>
+scores$very.pos = as.numeric(scores$score >= 1)<br/>
+scores$very.neg = as.numeric(scores$score <= -1)<br/>
+scores$Month = df.texts.clean$Month<br/>
+scores$BankID = df.texts.clean$BankID<br/>
+<br/>
+scores$text = lapply(scores$text, as.character)<br/>
+<br/>
+# how many very positives and very negatives<br/>
+numpos = sum(scores$very.pos)<br/>
+numneg = sum(scores$very.neg)<br/>
+<br/>
+# create a df with only negative sentences<br/>
+#df.negative.twitter = scores[(scores$very.neg == 1 & scores$mediatype == "twitter"),c(2,5)]<br/>
+#df.negative.facebook = scores[(scores$very.neg == 1 & scores$mediatype == "facebook"),c(2,5)]<br/>
+df.negative = scores[scores$very.neg == 1, c(2,5,6)]<br/>
+df.positive = scores[scores$very.pos == 1, c(2,5,6)]<br/>
   </p></code>
     <br/>
   <p>With the dataframe divided by that and having the banks in the respective posts, we have the data organized as that:</p>
-  <img style="display: block; margin: 10 auto" src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/dataOrganization1.png?raw=true" alt="Organized per banks and score"/>
+  <img style="display: block; margin: 10px auto" src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/dataOrganization1.png?raw=true" alt="Organized per banks and score"/>
 <h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a id="corpus_cleanup" class="anchor" href="#corpus_cleanup" aria-hidden="true"><span class="octicon octicon-link"></span></a> Creation of a Corpus to Clean the Text and create Word Clouds</h3>
 
 <p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
 
