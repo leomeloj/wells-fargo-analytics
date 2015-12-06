@@ -112,6 +112,22 @@ numneg = sum(scores$very.neg)<br/>
 #df.negative.facebook = scores[(scores$very.neg == 1 & scores$mediatype == "facebook"),c(2,5)]<br/>
 df.negative = scores[scores$very.neg == 1, c(2,5,6)]<br/>
 df.positive = scores[scores$very.pos == 1, c(2,5,6)]<br/>
+<br/>
+#BankA<br/><br/>
+df.bankA.negative = scores[(scores$BankID == "BankA" & scores$very.neg == 1), c(2, 5)]<br/>
+df.bankA.positive = scores[(scores$BankID == "BankA" & scores$very.pos == 1), c(2, 5)]<br/>
+#BankB<br/>
+df.bankB.negative = scores[(scores$BankID == "BankB" & scores$very.neg == 1), c(2, 5)]<br/>
+df.bankB.positive = scores[(scores$BankID == "BankB" & scores$very.pos == 1), c(2, 5)]<br/>
+#BankC<br/>
+df.bankC.negative = scores[(scores$BankID == "BankC" & scores$very.neg == 1), c(2, 5)]<br/>
+df.bankC.positive = scores[(scores$BankID == "BankC" & scores$very.pos == 1), c(2, 5)]<br/>
+#BankD<br/>
+df.bankD.negative = scores[(scores$BankID == "BankD" & scores$very.neg == 1), c(2, 5)]<br/>
+df.bankD.positive = scores[(scores$BankID == "BankD" & scores$very.pos == 1), c(2, 5)]<br/>
+#Banke<br/>
+df.banke.negative = scores[(scores$BankID == "Banke" & scores$very.neg == 1), c(2, 5)]<br/>
+df.banke.positive = scores[(scores$BankID == "Banke" & scores$very.pos == 1), c(2, 5)]<br/>
   </p></code>
     <br/>
   <p>With the dataframe divided by that and having the banks in the respective posts, we have the data organized as that:</p>
