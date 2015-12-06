@@ -75,8 +75,14 @@
     neg.matches = !is.na(neg.matches)<br/>
     <br/>
     # and conveniently enough, TRUE/FALSE will be treated as 1/0 by sum():<br/>
-    score = sum(pos.matches) - sum(neg.matches)</p></code><br/>
+    score = sum(pos.matches) - sum(neg.matches)<br/>
     <br/>
+    return(score)<br/>
+  }, pos.words, neg.words, .progress=.progress )<br/>
+  scores.df = data.frame(score=scores, text=sentences)
+  </p></code>
+    <br/>
+  <p>With the dataframe divided by that and having the banks in the respective posts, we have the data organized as that:</p>
 <h3>
 <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
 
