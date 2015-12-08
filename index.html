@@ -210,12 +210,67 @@ createWordCloud(df.banke.negative) <br/>
 createWordCloud(df.banke.positive) <br/>
 </p></code>
 <h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating pages manually</h3>
+<a id="analysing-data" class="anchor" href="#analysing-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysing the Data</h3>
+<p>The first analysis we made was how many positives and negative posts each bank had. The code can be checked below:</p>
+<code> <p style="margin-left: 20px">
+  #BANKA NUMBERS<br/>
+bankA.positive.counter = sum(scores[scores$BankID == "BankA", 3])<br/>
+bankA.negative.counter = sum(scores[scores$BankID == "BankA", 4])<br/>
+bankA.positive.percentage = (bankA.positive.counter*100) / (bankA.positive.counter + bankA.negative.counter)<br/>
+bankA.negative.percentage = (bankA.negative.counter*100) / (bankA.positive.counter + bankA.negative.counter)<br/>
+<br/>
+#BANKB NUMBERS<br/>
+bankB.positive.counter = sum(scores[scores$BankID == "BankB", 3])<br/>
+bankB.negative.counter = sum(scores[scores$BankID == "BankB", 4])<br/>
+bankB.positive.percentage = (bankB.positive.counter*100) / (bankB.positive.counter + bankB.negative.counter)<br/>
+bankB.negative.percentage = (bankB.negative.counter*100) / (bankB.positive.counter + bankB.negative.counter)<br/>
+<br/>
+#BANKC NUMBERS<br/>
+bankC.positive.counter = sum(scores[scores$BankID == "BankC", 3])<br/>
+bankC.negative.counter = sum(scores[scores$BankID == "BankC", 4])<br/>
+bankC.positive.percentage = (bankC.positive.counter*100) / (bankC.positive.counter + bankC.negative.counter)<br/>
+bankC.negative.percentage = (bankC.negative.counter*100) / (bankC.positive.counter + bankC.negative.counter)<br/>
+<br/>
+#BANKD NUMBERS<br/>
+bankD.positive.counter = sum(scores[scores$BankID == "BankD", 3])<br/>
+bankD.negative.counter = sum(scores[scores$BankID == "BankD", 4])<br/>
+bankD.positive.percentage = (bankD.positive.counter*100) / (bankD.positive.counter + bankD.negative.counter)<br/>
+bankD.negative.percentage = (bankD.negative.counter*100) / (bankD.positive.counter + bankD.negative.counter)<br/>
+<br/>
+#BANKe NUMBERS<br/>
+banke.positive.counter = sum(scores[scores$BankID == "Banke", 3])<br/>
+banke.negative.counter = sum(scores[scores$BankID == "Banke", 4])<br/>
+banke.positive.percentage = (banke.positive.counter*100) / (banke.positive.counter + banke.negative.counter)<br/>
+banke.negative.percentage = (banke.negative.counter*100) / (banke.positive.counter + banke.negative.counter)<br/>
+<br/>
+<br/>
+#Total Positives<br/>
+total.positives = sum(scores$very.pos)<br/>
+<br/>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+dat.positive<-data.frame(<br/>
+  banks = factor(c("BankA","BankB","BankC","BankD", "Banke"), levels=c("BankA","BankB", "BankC", "BankD", "Banke")),<br/>
+  positive = c((bankA.positive.counter*100)/total.positives, (bankB.positive.counter*100)/total.positives, <br/>
+               (bankC.positive.counter*100)/total.positives, (bankD.positive.counter*100)/total.positives, (banke.positive.counter*100)/total.positives) <br/>
+)<br/>
+(p <- qplot(banks, positive, data=dat.positive, position="dodge", geom="bar", stat="identity"))<br/>
+<br/>
+#TotalNegatives<br/>
+total.negative = sum(scores$very.neg)<br/>
+<br/>
+
+dat.negative<-data.frame(<br/>
+  banks = factor(c("BankA","BankB","BankC","BankD", "Banke"), levels=c("BankA","BankB", "BankC", "BankD", "Banke")),<br/>
+  positive = c((bankA.negative.counter*100)/total.positives, (bankB.negative.counter*100)/total.negative, <br/>
+               (bankC.negative.counter*100)/total.positives, (bankD.negative.counter*100)/total.negative, (banke.negative.counter*100)/total.positives)<br/>
+)<br/>
+<br/>
+(p <- qplot(banks, positive, data=dat.negative, position="dodge", geom="bar", stat="identity"))<br/>
+</p></code>
+<p> By analysing the graphics we can check that Bank B is the best ranked, having both the higher positive and lower negative posts percentage while BankC have the lowest positive and higher negative. </p>
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankGraphic.png?raw=true" alt="Percentage Graphic" style="margin: 10px auto">
 
 <hr style="margin-top: 30px;">
-
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
