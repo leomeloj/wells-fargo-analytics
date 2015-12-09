@@ -42,11 +42,12 @@
 <a id="organizing_data" class="anchor" href="#organizing_data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Organizing the data:</h3>
 
 <p>The team started by identifying in each post what bank was being talked about. By a simple string search, we found out the indexes of the posts that represents each bank. For example: the posts 1, 3, 4 and 5 talks about bank A while posts 2, 6 and 8 about bank B. So we created a column that represents the bank talked in the post:</p>
-  <code> <p style="margin-left: 20px">bankA.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankA",x)))<br/>
-         bankB.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankB",x)))<br/>
-         bankC.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankC",x)))<br/>
-         bankD.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankD",x))) </p>
-  </code>
+  ```R
+         bankA.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankA",x)))
+         bankB.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankB",x)))
+         bankC.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankC",x)))
+         bankD.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankD",x))) 
+  ```
   Making the dataframe looks like that:
   <img style="display: block; margin: 10px auto" src="https://raw.githubusercontent.com/leomeloj/wells-fargo-analytics/master/dataWithBanks.png" alt="dataframeWithBanks"/>
   <p>Afterwards, we divided the dataframe in two: Positive posts and Negative posts. In order to do that, we used a positive and a negative corpus and we score each post by how positive and how negative it was.</p>
