@@ -56,33 +56,33 @@
   require(stringr)<br/>
   <br/>
   <span># we got a vector of sentences. plyr will handle a list </span><br/>
-  # or a vector as an "l" for us<br/>
-  # we want a simple array ("a") of scores back, so we use <br/>
-  # "l" + "a" + "ply" = "laply":<br/>
+  <span> # or a vector as an "l" for us</span><br/>
+  <span># we want a simple array ("a") of scores back, so we use</span> <br/>
+  <span># "l" + "a" + "ply" = "laply":</span><br/>
   scores = laply(sentences, function(sentence, pos.words, neg.words) {<br/>
     <br/>
-    # clean up sentences with R's regex-driven global substitute, gsub():<br/>
+    <span># clean up sentences with R's regex-driven global substitute, gsub():</span><br/>
     sentence = gsub('[[:punct:]]', '', sentence)<br/>
     sentence = gsub('[[:cntrl:]]', '', sentence)<br/>
     sentence = gsub('\\d+', '', sentence)<br/>
-    # and convert to lower case:<br/>
+    <span># and convert to lower case:</span><br/>
     sentence = tolower(sentence)<br/>
     <br/>
-    # split into words. str_split is in the stringr package<br/>
+    <span># split into words. str_split is in the stringr package</span><br/>
     word.list = str_split(sentence, '\\s+')<br/>
-    # sometimes a list() is one level of hierarchy too much<br/>
+    <span># sometimes a list() is one level of hierarchy too much</span><br/>
     words = unlist(word.list)<br/>
     <br/>
-    # compare our words to the dictionaries of positive & negative terms<br/>
+    <span># compare our words to the dictionaries of positive & negative terms</span><br/>
     pos.matches = match(words, pos.words)<br/>
     neg.matches = match(words, neg.words)<br/>
     <br/>
-    # match() returns the position of the matched term or NA<br/>
-    # we just want a TRUE/FALSE:<br/>
+    <span># match() returns the position of the matched term or NA</span><br/>
+    <span># we just want a TRUE/FALSE:</span><br/>
     pos.matches = !is.na(pos.matches)<br/>
     neg.matches = !is.na(neg.matches)<br/>
     <br/>
-    # and conveniently enough, TRUE/FALSE will be treated as 1/0 by sum():<br/>
+    <span># and conveniently enough, TRUE/FALSE will be treated as 1/0 by sum():</span><br/>
     score = sum(pos.matches) - sum(neg.matches)<br/>
     <br/>
     return(score)<br/>
@@ -93,7 +93,7 @@
 }<br/>
 <br/>
 <br/>
-#scores = score.sentiment(df.new$FullText, pos, neg, .progress='text')<br/>
+<span>#scores = score.sentiment(df.new$FullText, pos, neg, .progress='text')</span><br/>
 <br/>
 scores = score.sentiment(df.texts.clean[,1], pos, neg, .progress='text')<br/>
 scores$very.pos = as.numeric(scores$score >= 1)<br/>
@@ -103,29 +103,30 @@ scores$BankID = df.texts.clean$BankID<br/>
 <br/>
 scores$text = lapply(scores$text, as.character)<br/>
 <br/>
-# how many very positives and very negatives<br/>
+<span># how many very positives and very negatives</span><br/>
 numpos = sum(scores$very.pos)<br/>
 numneg = sum(scores$very.neg)<br/>
 <br/>
-# create a df with only negative sentences<br/>
-#df.negative.twitter = scores[(scores$very.neg == 1 & scores$mediatype == "twitter"),c(2,5)]<br/>
-#df.negative.facebook = scores[(scores$very.neg == 1 & scores$mediatype == "facebook"),c(2,5)]<br/>
+<span># create a df with only negative sentences</span><br/>
+<span>#For Generating the dataframes separeted by social media type, use the two lines below </span><br/>
+<span>#df.negative.twitter = scores[(scores$very.neg == 1 & scores$mediatype == "twitter"),c(2,5)]</span><br/>
+<span>#df.negative.facebook = scores[(scores$very.neg == 1 & scores$mediatype == "facebook"),c(2,5)]</span><br/>
 df.negative = scores[scores$very.neg == 1, c(2,5,6)]<br/>
 df.positive = scores[scores$very.pos == 1, c(2,5,6)]<br/>
 <br/>
-#BankA<br/>
+<span>#BankA</span><br/>
 df.bankA.negative = scores[(scores$BankID == "BankA" & scores$very.neg == 1), c(2, 5)]<br/>
 df.bankA.positive = scores[(scores$BankID == "BankA" & scores$very.pos == 1), c(2, 5)]<br/>
-#BankB<br/>
+<span>#BankB</span><br/>
 df.bankB.negative = scores[(scores$BankID == "BankB" & scores$very.neg == 1), c(2, 5)]<br/>
 df.bankB.positive = scores[(scores$BankID == "BankB" & scores$very.pos == 1), c(2, 5)]<br/>
-#BankC<br/>
+<span>#BankC</span><br/>
 df.bankC.negative = scores[(scores$BankID == "BankC" & scores$very.neg == 1), c(2, 5)]<br/>
 df.bankC.positive = scores[(scores$BankID == "BankC" & scores$very.pos == 1), c(2, 5)]<br/>
-#BankD<br/>
+<span>#BankD</span><br/>
 df.bankD.negative = scores[(scores$BankID == "BankD" & scores$very.neg == 1), c(2, 5)]<br/>
 df.bankD.positive = scores[(scores$BankID == "BankD" & scores$very.pos == 1), c(2, 5)]<br/>
-#Banke<br/>
+<span>#Banke</span><br/>
 df.banke.negative = scores[(scores$BankID == "Banke" & scores$very.neg == 1), c(2, 5)]<br/>
 df.banke.positive = scores[(scores$BankID == "Banke" & scores$very.pos == 1), c(2, 5)]<br/>
   </p></code>
@@ -141,11 +142,11 @@ df.banke.positive = scores[(scores$BankID == "Banke" & scores$very.pos == 1), c(
 <p>With the dataset organized we created the corpus to create the word clouds. With the corpus created, it's possible to clean it by removing unwanted words and terms. We did a function that was used to clean up the texts and generate the word cloud:</p>
 <code><p style="margin-left: 20px">
   createWordCloud = function(dataset){<br/>
-  #Create a corpus using a dataframe<br/>
-  #corpus <- Corpus(DataframeSource(dataset))<br/>
+<span>  #Create a corpus using a dataframe</span><br/>
+  <span>#corpus <- Corpus(DataframeSource(dataset))</span><br/>
   corpus <- VCorpus(VectorSource(dataset$text))<br/>
   
-  #clean the corpus text<br/>
+  <span>#clean the corpus text</span><br/>
   corpus <- tm_map(corpus, content_transformer(tolower))  <br/>
   corpus <- tm_map(corpus, removeWords, c("name", "bank", "twit_hndl", "AD", "twit_hnld_bankb_help","ADRESS", "twit","twithndlbankc",<br/>
                                           "twit_hndl_banka", "twit_hndl_bankb", "twit_hndl_bankd", "twit_hndl_banke",<br/>
@@ -156,27 +157,27 @@ df.banke.positive = scores[(scores$BankID == "Banke" & scores$very.pos == 1), c(
   corpus <- tm_map(corpus, removeNumbers)<br/>
   corpus <- tm_map(corpus, removeWords, stopwords("english"))<br/>
   <br/>
-  #Creates a Document Term Matrix to be used in the wordcloud<br/>
+  <span>#Creates a Document Term Matrix to be used in the wordcloud</span><br/>
   corpusText <- tm_map(corpus, PlainTextDocument)<br/>
   dtm <- DocumentTermMatrix(corpusText)<br/>
   <br/>
   tdm <- TermDocumentMatrix(corpus)<br/>
-  #Get the frequency of the words <br/>
+  <span>#Get the frequency of the words</span> <br/>
   freq <- colSums(as.matrix(dtm))   <br/>
   length(freq)   <br/>
   ord <- order(freq)   <br/>
   m <- as.matrix(dtm)   <br/>
   dim(m)   <br/>
   <br/>
-  #Sort the words by frequency rank<br/>
+  <span>#Sort the words by frequency rank</span><br/>
   freq<- sort(colSums(as.matrix(dtm)), decreasing=TRUE)<br/>
-  #Create a txt file with the ranked words<br/>
+  <span>#Create a txt file with the ranked words</span><br/>
   write.table(freq, file = "input.txt")<br/>
   <br/>
   dtms <- removeSparseTerms(dtm, 0.25) # Prepare the data (max 15% empty space)   <br/>
   freq <- colSums(as.matrix(dtm)) # Find word frequencies   <br/>
   dark2 <- brewer.pal(6, "Dark2")   <br/>
-  #Create the wordcloud<br/>
+  <span>#Create the wordcloud</span><br/>
   wordcloud(names(freq), freq, max.words=100, rot.per=0.2, colors=dark2)  <br/>
 }<br/>
   
@@ -184,16 +185,16 @@ df.banke.positive = scores[(scores$BankID == "Banke" & scores$very.pos == 1), c(
 
 <p> Afterwards, we used that function to generate the WordClouds for each dataframe we wanted to analyze: </p>
 <code> <p style="margin-left: 20px">
-  #Call the function to generate different wordclouds <br/>
-#Creating clouds to see the diffence between what banks A, B, C and D have different than the other banks <br/>
+  <span>#Call the function to generate different wordclouds</span> <br/>
+<span>#Creating clouds to see the diffence between what banks A, B, C and D have different than the other banks</span> <br/>
 createWordCloud(scores[(scores$BankID != "Banke" & scores$very.pos == 1),c(2,3)]) <br/>
 createWordCloud(scores[(scores$BankID == "Banke" & scores$very.pos == 1),c(2,3)]) <br/>
  <br/>
 createWordCloud(scores[(scores$BankID != "Banke" & scores$very.neg == 1),c(2,3)]) <br/>
 createWordCloud(scores[(scores$BankID == "Banke" & scores$very.neg == 1),c(2,3)]) <br/>
  <br/>
-#Create clouds to see the difference between the banks A, B, C and D <br/>
-#createWordCloud(scores[(scores$BankID == "Banke"),c(2,3)]) <br/>
+<span>#Create clouds to see the difference between the banks A, B, C and D </span><br/>
+<span>#createWordCloud(scores[(scores$BankID == "Banke"),c(2,3)])</span> <br/>
 createWordCloud(scores[(scores$very.neg == 1),c(2,3)]) <br/>
 createWordCloud(scores[(scores$very.pos == 1),c(2,3)]) <br/>
  <br/>
@@ -214,38 +215,38 @@ createWordCloud(df.banke.positive) <br/>
 <h4>Percentage of Positives and Negatives</h4>
 <p>The first analysis we made was how many positives and negative posts each bank had. The code can be checked below:</p>
 <code> <p style="margin-left: 20px">
-  #BANKA NUMBERS<br/>
+  <span>#BANKA NUMBERS</span><br/>
 bankA.positive.counter = sum(scores[scores$BankID == "BankA", 3])<br/>
 bankA.negative.counter = sum(scores[scores$BankID == "BankA", 4])<br/>
 bankA.positive.percentage = (bankA.positive.counter*100) / (bankA.positive.counter + bankA.negative.counter)<br/>
 bankA.negative.percentage = (bankA.negative.counter*100) / (bankA.positive.counter + bankA.negative.counter)<br/>
 <br/>
-#BANKB NUMBERS<br/>
+<span>#BANKB NUMBERS</span><br/>
 bankB.positive.counter = sum(scores[scores$BankID == "BankB", 3])<br/>
 bankB.negative.counter = sum(scores[scores$BankID == "BankB", 4])<br/>
 bankB.positive.percentage = (bankB.positive.counter*100) / (bankB.positive.counter + bankB.negative.counter)<br/>
 bankB.negative.percentage = (bankB.negative.counter*100) / (bankB.positive.counter + bankB.negative.counter)<br/>
 <br/>
-#BANKC NUMBERS<br/>
+<span>#BANKC NUMBERS</span><br/>
 bankC.positive.counter = sum(scores[scores$BankID == "BankC", 3])<br/>
 bankC.negative.counter = sum(scores[scores$BankID == "BankC", 4])<br/>
 bankC.positive.percentage = (bankC.positive.counter*100) / (bankC.positive.counter + bankC.negative.counter)<br/>
 bankC.negative.percentage = (bankC.negative.counter*100) / (bankC.positive.counter + bankC.negative.counter)<br/>
 <br/>
-#BANKD NUMBERS<br/>
+<span>#BANKD NUMBERS</span><br/>
 bankD.positive.counter = sum(scores[scores$BankID == "BankD", 3])<br/>
 bankD.negative.counter = sum(scores[scores$BankID == "BankD", 4])<br/>
 bankD.positive.percentage = (bankD.positive.counter*100) / (bankD.positive.counter + bankD.negative.counter)<br/>
 bankD.negative.percentage = (bankD.negative.counter*100) / (bankD.positive.counter + bankD.negative.counter)<br/>
 <br/>
-#BANKe NUMBERS<br/>
+<span>#BANKe NUMBERS</span><br/>
 banke.positive.counter = sum(scores[scores$BankID == "Banke", 3])<br/>
 banke.negative.counter = sum(scores[scores$BankID == "Banke", 4])<br/>
 banke.positive.percentage = (banke.positive.counter*100) / (banke.positive.counter + banke.negative.counter)<br/>
 banke.negative.percentage = (banke.negative.counter*100) / (banke.positive.counter + banke.negative.counter)<br/>
 <br/>
 <br/>
-#Total Positives<br/>
+<span>#Total Positives</span><br/>
 total.positives = sum(scores$very.pos)<br/>
 <br/>
 
@@ -256,7 +257,7 @@ dat.positive<-data.frame(<br/>
 )<br/>
 (p <- qplot(banks, positive, data=dat.positive, position="dodge", geom="bar", stat="identity"))<br/>
 <br/>
-#TotalNegatives<br/>
+<span>#TotalNegatives</span><br/>
 total.negative = sum(scores$very.neg)<br/>
 <br/>
 
