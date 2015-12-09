@@ -636,6 +636,10 @@ code {
   border-radius: 2px;
 }
 
+code span {
+  color: #86b41b;
+}
+
 pre {
   padding: 8px 15px;
   background: #191919;
