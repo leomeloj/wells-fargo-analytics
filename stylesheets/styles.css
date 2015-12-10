@@ -331,6 +331,35 @@ ul {
 /*
  * Corrects list images handled incorrectly in IE7
  */
+.navigator {
+  left: 50%; 
+  margin-left: 
+  -580px; 
+  position: fixed; 
+  text-align: right; 
+  top: 220px; 
+  width: 230px
+}
+
+.navigator ul li a {
+  color: #93bd20;
+}
+
+.navigator ul li {
+    line-height: 16px;
+    padding: 5px 0;
+}
+
+.navigator ul li.tag-h1 {
+    font-size: 1.2em;
+}
+
+.navigator ul {
+    font-size: 14px;
+    line-height: 24px;
+    list-style: outside none none;
+}
+ 
 nav ul,
 nav ol {
   list-style: none;
@@ -838,12 +867,19 @@ section #title .credits.right {
     float: none;
     display: block;
   }
+  nav {
+    display: none;
+  }
 }
 @media print, screen and (max-width: 480px) {
   #header {
     margin-top: -20px;
   }
-
+  
+  nav {
+    display: none;
+  }
+  
   section {
     margin-top: 40px;
   }
