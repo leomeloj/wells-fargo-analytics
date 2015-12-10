@@ -870,7 +870,7 @@ section #title .credits.right {
     float: none;
     display: block;
   }
-  nav {
+  .navigator {
     display: none;
   }
 }
