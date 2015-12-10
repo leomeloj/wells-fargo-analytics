@@ -351,7 +351,11 @@ ul {
 }
 
 .navigator ul li.tag-h1 {
-    font-size: 1.2em;
+    font-size: 1.4em;
+}
+
+.navigator ul li.tag-h1 a {
+  color: #609050 !important;
 }
 
 .navigator ul {
