@@ -357,8 +357,23 @@ As a first step, I ran the code below to generate the WordClouds:</p>
      tool (based on frequency) doesn't filter irrelevant words like stopWords.</p>
      <p>Although, if you already know what word you want to analyse, the Concordance tool is really usefull.  You just need to use a
         .txt file as an input and search the word in the concordance tab and you can see all the occurencies of the word in their given context</p>
+      <code><p style="margin-left: 20px">
+               write.table(df.bankA.positive[,1], file = "positiveCorpusB.txt")<br/>
+               write.table(df.bankB.positive[,1], file = "positiveCorpusB.txt")<br/>
+               write.table(df.bankC.positive[,1], file = "positiveCorpusB.txt")<br/>
+               write.table(df.bankD.positive[,1], file = "positiveCorpusB.txt")<br/>
+      </p></code>
       <p>The .txt file is easilly adquire, on every function call above, the algorithm generates an file called input.txt that's exactly
-         what the software needs. By running the concordancer with BankA's positive corpus, the result is represented in the printscreen below: </p>
+         what the software needs. By running the concordancer with BankA's positive corpus, the result is represented in the printscreen below: 
+      </p>
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankA-concord.png?raw=true" alt="bankA in Concordancer" style="display: block; margin: 10px auto">
+<p>By anaylising the data in AntConc I realized that, in bankA, the majority of the positive posts were not positives towards bankA
+  reputation, it was just written on a polite way. For instance, the highlighted post is: "if anyone has a BankA account i would 
+  strongly recommend you checking your bank account to make sure that you do not have any unauthorized transactions
+  going to paypal. i had money with drawn from my account via paypal to someone i dont evem know". Clearly, that's not a positive
+  post for bankA, but it was classified as such.</p>
+  <p>Another goal was to identify why bankB have the biggest number of positive posts. By analysing the top ranked keywords at
+     the wordcloud</p>
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
