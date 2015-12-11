@@ -332,12 +332,12 @@ ul {
  * Corrects list images handled incorrectly in IE7
  */
 .navigator {
-    left: 46%;
+    left: 42%;
     margin-left: -580px;
     position: fixed;
     text-align: right;
     top: 150px;
-    width: 290px;
+    width: 350px;
 }
 
 .navigator ul li a {
