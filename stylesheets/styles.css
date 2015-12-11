@@ -855,7 +855,7 @@ section #title .credits.right {
   float: right;
 }
 
-@media print, screen and (max-width:1024px) {
+@media print, screen and (max-width:1140px) {
   .navigator {
     display: none;
   }
