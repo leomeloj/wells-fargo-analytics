@@ -372,8 +372,51 @@ As a first step, I ran the code below to generate the WordClouds:</p>
   strongly recommend you checking your bank account to make sure that you do not have any unauthorized transactions
   going to paypal. i had money with drawn from my account via paypal to someone i dont evem know". Clearly, that's not a positive
   post for bankA, but it was classified as such.</p>
-  <p>Another goal was to identify why bankB have the biggest number of positive posts. By analysing the top ranked keywords at
-     the wordcloud</p>
+  <p>Another goal was to identify why bankB have the biggest number of positive posts. For that analysis, I followed the same methodology
+      as before. I generated the wordcloud, found the keywords in the positive posts and used AntConc to see the context the words were
+      being used:</p>
+  <img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankB-concord.png?raw=true" alt="bankB in Concordancer" style="display: block; margin: 10px auto">
+  <p>In the image above, the post highlighted says: "[Name] feed BankB is appreciated. [Name], if you have additional concerns please feel free to reach out to us".
+     Clearly, this post, like almost every other containing the word "APPRECIATE" in this corpus, is a bankB reply for a user.</p>
+    <p> Since the message is filled with polite words, all those posts were classified as positive posts. In that scenario, the percentage
+         of community based positive posts are probably diferent than the one reported in our statistics</p>
+    <p>In that context, I looked for a pattern to identify the posts that were from an employee of the bank and I found out that everyone of them had Name_Resp at the end.
+       With that information, I ran a string search algorithm and found out new numbers and statistics, removing the posts published by
+       bank employees: </p>
+       <code><p>
+<span>Calculate the percentages removing the posts from bank employees </span><br/>
+bankA.staff.indx = which(sapply(df.bankA.positive$text,function(x) grepl("Name_Resp",x)))<br/>
+bankB.staff.indx = which(sapply(df.bankB.positive$text,function(x) grepl("Name_Resp",x)))<br/>
+bankC.staff.indx = which(sapply(df.bankC.positive$text,function(x) grepl("Name_Resp",x)))<br/>
+bankD.staff.indx = which(sapply(df.bankD.positive$text,function(x) grepl("Name_Resp",x)))<br/>
+banke.staff.indx = which(sapply(df.banke.positive$text,function(x) grepl("Name_Resp",x)))<br/>
+<br/>
+<span>#BANKA NUMBERS</span><br/>
+bankA.positive.counter = bankA.positive.counter - length(bankA.staff.indx)<br/>
+bankA.positive.percentage = (bankA.positive.counter*100) / (bankA.positive.counter + bankA.negative.counter)<br/>
+bankA.negative.percentage = 100 - bankA.positive.percentage<br/>
+<br/>
+<span>#BANKB NUMBERS</span><br/>
+bankB.positive.counter = bankB.positive.counter - length(bankB.staff.indx)<br/>
+bankB.positive.percentage = (bankB.positive.counter*100) / (bankB.positive.counter + bankB.negative.counter)<br/>
+bankB.negative.percentage = 100 - bankB.positive.percentage<br/>
+<br/>
+<span>#BANKC NUMBERS</span><br/>
+bankC.positive.counter = bankC.positive.counter - length(bankC.staff.indx)<br/>
+bankC.positive.percentage = (bankC.positive.counter*100) / (bankC.positive.counter + bankC.negative.counter)<br/>
+bankC.negative.percentage = 100 - bankC.positive.percentage<br/>
+<br/>
+<span>#BANKD NUMBERS</span><br/>
+bankD.positive.counter = bankD.positive.counter - length(bankD.staff.indx)<br/>
+bankD.positive.percentage = (bankD.positive.counter*100) / (bankD.positive.counter + bankD.negative.counter)<br/>
+bankD.negative.percentage = 100 - bankD.positive.percentage<br/>
+<br/>
+<span>#Banke NUMBERS</span><br/>
+banke.positive.counter = banke.positive.counter - length(banke.staff.indx)<br/><br/>
+banke.positive.percentage = (banke.positive.counter*100) / (banke.positive.counter + banke.negative.counter)<br/>
+banke.negative.percentage = 100 - banke.positive.percentage<br/>
+<br/>
+       </p></code>
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
