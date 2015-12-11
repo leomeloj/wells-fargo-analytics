@@ -332,12 +332,12 @@ ul {
  * Corrects list images handled incorrectly in IE7
  */
 .navigator {
-    left: 42%;
+    left: 46%;
     margin-left: -580px;
     position: fixed;
     text-align: right;
     top: 150px;
-    width: 350px;
+    width: 260px;
 }
 
 .navigator ul li a {
@@ -358,7 +358,7 @@ ul {
 }
 
 .navigator ul {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 24px;
     list-style: outside none none;
 }
@@ -853,12 +853,6 @@ section #title .credits.left {
 }
 section #title .credits.right {
   float: right;
-}
-
-@media print, screen and (max-width:1190px) {
-  .navigator {
-    display: none;
-  }
 }
 
 @media print, screen and (max-width: 720px) {
