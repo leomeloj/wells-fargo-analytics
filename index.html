@@ -336,6 +336,30 @@ and that’s why this word appears a lot. It can actually be considered a good t
 satisfied having the bank’s CEO talking about the current situation of the company they are trusting their money to.</p>
 <hr style="margin-top: 30px;">
 <h3>
+<a id="positive-corpus" class="anchor" href="#positive-corpus" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis of Positive Corpus</h3>
+<p>As a complement to my groups work, I analysed the positive corpus, hoping to identify the key words and the positive aspects of each bank.<br/>
+As a first step, I ran the code below to generate the WordClouds:</p>
+<code><p>
+  createWordCloud(df.bankA.positive)
+  createWordCloud(df.bankB.positive)
+  createWordCloud(df.bankC.positive)
+  createWordCloud(df.bankD.positive)
+</p></code>
+<br/>
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/positive-word-clouds.png?raw=true" alt="Positive Word Cloud" style="display: block; margin: 10px auto">
+<p> When I started analysing the positive keywords for bankA, for my surprize, the results were incompatible to the results 
+    we found for the negative posts, meaning that the same subject described as a flaw in bankA was result object in the positive aspect.</p>
+<p> For example, some of most frequent words in the positive wordcloud are: "ACCOUNT", "SUPPORT", "PHONE" and "CARD". Since those words were present in the negative corpus as well, I decided to use Antconc as a concordancer to help me analyse it.</p>
+<h4>
+<a id="antconc" class="anchor" href="#antconc" aria-hidden="true"><span class="octicon octicon-link"></span></a>Antconc</h3>
+  <p>Antconc is a freeware corpus analysis toolkit for concordancing and text analysis. It works well, but it have lots of 
+     limitations: the text need to be in a .txt format for it to work; the corpus need to be clean; and for the wordlist
+     tool (based on frequency) doesn't filter irrelevant words like stopWords.</p>
+     <p>Although, if you already know what word you want to analyse, the Concordance tool is really usefull.  You just need to use a
+        .txt file as an input and search the word in the concordance tab and you can see all the occurencies of the word in their given context</p>
+      <p>The .txt file is easilly adquire, on every function call above, the algorithm generates an file called input.txt that's exactly
+         what the software needs. By running the concordancer with BankA's positive corpus, the result is represented in the printscreen below: </p>
+<h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
 <p>That was a team project and the team consisted of three computer science majors: Juliana Jalloule <a href="https://github.com/Jalloule" class="user-mention">@jalloule</a>, Julie Pessoa <a href="https://github.com/JuliePessoa" class="user-mention">@juliePessoa</a> and me, Leonardo de Melo <a href="https://github.com/leomeloj" class="user-mention">@leomeloj</a></p>
