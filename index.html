@@ -41,13 +41,28 @@
             <a href="#corpus_cleanup"> Corpus Creation and Cleanup</a>
           </li>
           <li class="tag-h1">
-            <a href="#analysing-data"> Analysing the Data</a>
+            <a href="#analysing-negative-data"> Analysing the Data</a>
           </li>
           <li class="tag-h2">
             <a href="#analysing-data"> Percentage of Positives and Negatives</a>
           </li>
           <li class="tag-h2">
             <a href="#word-clouds"> Word Clouds</a>
+          </li>
+          <li class="tag-h1">
+            <a href="#positive-corpus"> Analysing the Positive Posts (new)</a>
+          </li>
+          <li class="tag-h2">
+            <a href="#analysing-positive-posts"> Creating the WordClouds</a>
+          </li>
+          <li class="tag-h2">
+            <a href="#antconc"> Analysing with AntConc</a>
+          </li>
+          <li class="tag-h2">
+            <a href="#employee-posts-remove"> Removing Employee Posts</a>
+          </li>
+          <li class="tag-h2">
+            <a href="#new-statistics"> New Statistics and Graphic</a>
           </li>
         </ul>
       </nav>
@@ -351,7 +366,7 @@ As a first step, I ran the code below to generate the WordClouds:</p>
     we found for the negative posts, meaning that the same subject described as a flaw in bankA was result object in the positive aspect.</p>
 <p> For example, some of most frequent words in the positive wordcloud are: "ACCOUNT", "SUPPORT", "PHONE" and "CARD". Since those words were present in the negative corpus as well, I decided to use Antconc as a concordancer to help me analyse it.</p>
 <h3>
-<a id="antconc" class="anchor" href="#antconc" aria-hidden="true"><span class="octicon octicon-link"></span></a>Antconc Analysis</h3>
+<a id="antconc" class="anchor" href="#antconc" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysing with Antconc</h3>
   <p>Antconc is a freeware corpus analysis toolkit for concordancing and text analysis. It works well, but it have lots of 
      limitations: the text need to be in a .txt format for it to work; the corpus need to be clean; and for the wordlist
      tool (based on frequency) doesn't filter irrelevant words like stopWords.</p>
@@ -381,7 +396,7 @@ As a first step, I ran the code below to generate the WordClouds:</p>
     <p> Since the message is filled with polite words, all those posts were classified as positive posts. In that scenario, the percentage
          of community based positive posts are probably diferent than the one reported in our statistics</p>
 <h3>
-<a id="employee-posts-removed" class="anchor" href="#employee-posts-removed" aria-hidden="true"><span class="octicon octicon-link"></span></a>New Statistics without Employee Posts</h3>
+<a id="employee-posts-remove" class="anchor" href="#employee-posts-remove" aria-hidden="true"><span class="octicon octicon-link"></span></a>Removing Employee Posts</h3>
     <p>In that context, I looked for a pattern to identify the posts that were from an employee of the bank and I found out that everyone of them had Name_Resp at the end.
        With that information, I ran a string search algorithm and found out new numbers and statistics, removing the posts published by
        bank employees: </p>
@@ -419,6 +434,9 @@ banke.positive.percentage = (banke.positive.counter*100) / (banke.positive.count
 banke.negative.percentage = 100 - banke.positive.percentage<br/>
 <br/>
        </p></code>
+<h3>
+<a id="new-statistics" class="anchor" href="#new-statistics" aria-hidden="true"><span class="octicon octicon-link"></span></a>New Statistics and Graphic</h3>
+
 <p>With those number, I created a new graphic that represents better the costumer view of the banks:</p>
 <code><p>
 <span>#Creates the dataframe with the positive posts</span><br/>
