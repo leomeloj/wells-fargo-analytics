@@ -87,7 +87,7 @@
          bankD.idx = which(sapply(df.texts.clean$FullText,function(x) grepl("BankD",x))) 
   </p></code>
   Making the dataframe looks like that:
-  <img style="display: block; margin: 10px auto" src="https://raw.githubusercontent.com/leomeloj/wells-fargo-analytics/master/dataWithBanks.png" alt="dataframeWithBanks"/>
+  <img style="display: block; margin: 10px auto" src="https://raw.githubusercontent.com/leomeloj/wells-fargo-analytics/master/images/dataWithBanks.png" alt="dataframeWithBanks"/>
   <p>Afterwards, we divided the dataframe in two: Positive posts and Negative posts. In order to do that, we used a positive and a negative corpus and we score each post by how positive and how negative it was.</p>
   <p>Basicaly, for each positive word found on a post his score was incremented by 1 and for each negative it was decremented by 1. Then, for those posts with a score lower than -2 or higher than +2 we would consider it negative or positive respectively. The code is the above:</p>
   <code><p style="margin-left: 20px">score.sentiment = function(sentences, pos.words, neg.words, .progress='none') { <br/>
@@ -171,7 +171,7 @@ df.banke.positive = scores[(scores$BankID == "Banke" & scores$very.pos == 1), c(
   </p></code>
     <br/>
   <p>With the dataframe divided by that and having the banks in the respective posts, we have the data organized as that:</p>
-  <img style="display: block; margin: 10px auto" src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/dataOrganization1.png?raw=true" alt="Organized per banks and score"/>
+  <img style="display: block; margin: 10px auto" src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/dataOrganization1.png?raw=true" alt="Organized per banks and score"/>
 
 <hr style="margin-top: 30px;">
 
@@ -309,7 +309,7 @@ dat.negative<-data.frame(<br/>
 (p <- qplot(banks, positive, data=dat.negative, position="dodge", geom="bar", stat="identity"))<br/>
 </p></code>
 <p> By analysing the graphics we can check that Bank B is the best ranked, having both the higher positive and lower negative posts percentage while BankC have the lowest positive and higher negative. </p>
-<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankGraphic.png?raw=true" alt="Percentage Graphic" style="margin: 10px auto; display: block">
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/bankGraphic.png?raw=true" alt="Percentage Graphic" style="margin: 10px auto; display: block">
 <br/>
 <hr style="margin-top: 30px;">
 <h3>
@@ -317,7 +317,7 @@ dat.negative<-data.frame(<br/>
 <p>Using the code described in the last section, we identified the most frequent words in the negative posts and did some analysis on top of them. </p>
 <h4>BankA</h4>
 <p>The Word Cloud Generated for Bank A is represented below: </p>
-<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankA-negative.png?raw=true" width="554px" alt="BankA Negative WordCloud" style="margin: 10px auto; display: block">
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/bankA-negative.png?raw=true" width="554px" alt="BankA Negative WordCloud" style="margin: 10px auto; display: block">
 <br/>
 <p>For BankA the most frequent words in the negative posts are “ACCOUNT” and “CARD”, followed by words like “PHONE”,
 “HELP”, “CUSTOMER”, “SERVICE” and “PROBLEM”, what can lead us to think that customers are really unsatisfied with the
@@ -326,7 +326,7 @@ problems solving BankA is providing them, especially the help provided via cell 
 <h4>BankB</h4>
 <p>The Word Cloud Generated for Bank B is represented below: </p>
 <br/>
-<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankB-negative.png?raw=true" width="554px" alt="BankB Negative WordCloud" style="margin: 10px auto; display: block">
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/bankB-negative.png?raw=true" width="554px" alt="BankB Negative WordCloud" style="margin: 10px auto; display: block">
 <p>For BankB the most frequent words in the negative posts are “ACCOUNT”, “MONEY” and “FRAUD”, with “PANIC” being a
 frequent word as well, what can possibly mean that some customers are afraid of frauds, what makes them really
 unsatisfied.</p>
@@ -334,13 +334,13 @@ unsatisfied.</p>
 <h4>BankC</h4>
 <p>The Word Cloud Generated for Bank C is represented below: </p>
 <br/>
-<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankC-negative.png?raw=true" width="554px" alt="BankC Negative WordCloud" style="margin: 10px auto; display: block">
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/bankC-negative.png?raw=true" width="554px" alt="BankC Negative WordCloud" style="margin: 10px auto; display: block">
 <p>For BankC some frequent words in the negative posts are “fund”, “guilty” and “recession” what can lead us to think
 that customers are really unsatisfied with BankC’s recessions which are probably decreasing the quality of the bank’s
 service. Customers may also be thinking that their funds are in danger in the hands of BankC</p><br/>
 <h4>BankD</h4>
 <p>The Word Cloud Generated for Bank D is represented below: </p>
-<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankD-negative.png?raw=true" width="554px" alt="BankD Negative WordCloud" style="margin: 10px auto; display: block">
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/bankD-negative.png?raw=true" width="554px" alt="BankD Negative WordCloud" style="margin: 10px auto; display: block">
 <br/>
 <p>For BankD the most frequent words in the negative posts are
 “account”, “card” and “CEO”, what actually doesn’t mean too much but can definitely lead us to think that BankD’s
@@ -361,7 +361,7 @@ As a first step, I ran the code below to generate the WordClouds:</p>
   createWordCloud(df.bankD.positive)
 </p></code>
 <br/>
-<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/positive-word-clouds.png?raw=true" alt="Positive Word Cloud" style="display: block; margin: 10px auto">
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/positive-word-clouds.png?raw=true" alt="Positive Word Cloud" style="display: block; margin: 10px auto">
 <p> When I started analysing the positive keywords for bankA, for my surprize, the results were incompatible to the results 
     we found for the negative posts, meaning that the same subject described as a flaw in bankA was result object in the positive aspect.</p>
 <p> For example, some of most frequent words in the positive wordcloud are: "ACCOUNT", "SUPPORT", "PHONE" and "CARD". Since those words were present in the negative corpus as well, I decided to use Antconc as a concordancer to help me analyse it.</p>
@@ -381,7 +381,7 @@ As a first step, I ran the code below to generate the WordClouds:</p>
       <p>The .txt file is easilly adquire, on every function call above, the algorithm generates an file called input.txt that's exactly
          what the software needs. By running the concordancer with BankA's positive corpus, the result is represented in the printscreen below: 
       </p>
-<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankA-concord.png?raw=true" alt="bankA in Concordancer" style="display: block; margin: 10px auto">
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/bankA-concord.png?raw=true" alt="bankA in Concordancer" style="display: block; margin: 10px auto">
 <p>By anaylising the data in AntConc I realized that, in bankA, the majority of the positive posts were not positives towards bankA
   reputation, it was just written on a polite way. For instance, the highlighted post is: "if anyone has a BankA account i would 
   strongly recommend you checking your bank account to make sure that you do not have any unauthorized transactions
@@ -390,7 +390,7 @@ As a first step, I ran the code below to generate the WordClouds:</p>
   <p>Another goal was to identify why bankB have the biggest number of positive posts. For that analysis, I followed the same methodology
       as before. I generated the wordcloud, found the keywords in the positive posts and used AntConc to see the context the words were
       being used:</p>
-  <img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/bankB-concord.png?raw=true" alt="bankB in Concordancer" style="display: block; margin: 10px auto">
+  <img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/bankB-concord.png?raw=true" alt="bankB in Concordancer" style="display: block; margin: 10px auto">
   <p>In the image above, the post highlighted says: "[Name] feed BankB is appreciated. [Name], if you have additional concerns please feel free to reach out to us".
      Clearly, this post, like almost every other containing the word "APPRECIATE" in this corpus, is a bankB reply for a user.</p>
     <p> Since the message is filled with polite words, all those posts were classified as positive posts. In that scenario, the percentage
@@ -449,7 +449,7 @@ dat.positive<-data.frame(<br/>
 (p <- qplot(banks, positive, data=dat.positive, position="dodge", geom="bar", <br/>
             stat="identity"))<br/>
 </p></code>
-<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/new-bank-graphic.png?raw=true" alt="New Statistics Graphic" style="display: block; margin: 10px auto">
+<img src="https://github.com/leomeloj/wells-fargo-analytics/blob/master/images/new-bank-graphic.png?raw=true" alt="New Statistics Graphic" style="display: block; margin: 10px auto">
 <p> In that new statistic, bankC still have the worst position in the positive posts. Although, the best rated now is bankD instead of bankB
    who now have a rate worst than bankA as well.</p>
 <h3>
